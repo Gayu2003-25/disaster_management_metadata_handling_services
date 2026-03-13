@@ -11,11 +11,11 @@ public class Sensor {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "sensor_type_id")
+    @JoinColumn(name = "sensor_type_id" ,nullable = false)
     private SensorType sensorType;
 
     @ManyToOne
-    @JoinColumn(name = "site_id")
+    @JoinColumn(name = "site_id" ,nullable = false)
     private Site site;
 
     private double latitude;
