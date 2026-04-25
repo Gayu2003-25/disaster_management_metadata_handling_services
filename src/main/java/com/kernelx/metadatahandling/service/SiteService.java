@@ -2,8 +2,10 @@ package com.kernelx.metadatahandling.service;
 
 import com.kernelx.metadatahandling.entity.Site;
 import com.kernelx.metadatahandling.repository.SiteRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class SiteService {
 

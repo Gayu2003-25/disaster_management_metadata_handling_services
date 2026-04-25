@@ -2,8 +2,10 @@ package com.kernelx.metadatahandling.service;
 
 import com.kernelx.metadatahandling.entity.Sensor;
 import com.kernelx.metadatahandling.repository.SensorRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class SensorService {
 
