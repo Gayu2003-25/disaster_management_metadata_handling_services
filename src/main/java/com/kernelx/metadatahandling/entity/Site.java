@@ -10,7 +10,6 @@ public class Site {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int siteId;
 
-    private String globalSiteId;
     private String location;
     private String siteName;
 
@@ -20,14 +19,6 @@ public class Site {
 
     public void setSiteId(int siteId) {
         this.siteId = siteId;
-    }
-
-    public String getGlobalSiteId() {
-        return globalSiteId;
-    }
-
-    public void setGlobalSiteId(String globalSiteId) {
-        this.globalSiteId = globalSiteId;
     }
 
     public String getLocation() {

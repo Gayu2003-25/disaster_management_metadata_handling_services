@@ -20,7 +20,6 @@ public class SiteService {
         Site site = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Site not found with id " + id));
 
-        site.setGlobalSiteId(siteDetails.getGlobalSiteId());
         site.setLocation(siteDetails.getLocation());
         site.setSiteName(siteDetails.getSiteName());
 

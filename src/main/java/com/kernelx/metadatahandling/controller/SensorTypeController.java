@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/sensorTypes")
+@RequestMapping("/sensor-types")
 public class SensorTypeController {
 
     private final SensorTypeService service;
