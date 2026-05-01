@@ -2,21 +2,15 @@ package com.kernelx.metadatahandling.entity;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Generated;
-import org.hibernate.generator.EventType;
 
 @Entity
-@Table(name = "sensors")
-@JsonPropertyOrder({ "autoId", "sensorId", "sensorType", "site", "latitude", "longitude" })
+@Table(name = "sensor")
+@JsonPropertyOrder({ "sensorId", "sensorType", "site", "latitude", "longitude" })
 public class Sensor {
-
-    @Column(insertable = false, updatable = false, columnDefinition = "serial")
-    @Generated(event = EventType.INSERT)
-    private int autoId;
 
     @Id
     @Column(name = "sensor_id")
-    private String sensorId;
+    private Integer sensorId;
 
     @ManyToOne
     @JoinColumn(name = "sensor_type_id", nullable = false)
@@ -26,19 +20,31 @@ public class Sensor {
     @JoinColumn(name = "site_id", nullable = false)
     private Site site;
 
+    @Column(nullable = false)
     private double latitude;
+
+    @Column(nullable = false)
     private double longitude;
+
+    @Column(name = "unit_of_measure", nullable = false, length = 8)
     private String unitOfMeasure;
+
+    @Column(name = "threshold_high_warning", nullable = false)
     private double thresholdHighWarning;
+
+    @Column(name = "threshold_high_critical", nullable = false)
     private double thresholdHighCritical;
+
+    @Column(name = "threshold_low_warning", nullable = false)
     private double thresholdLowWarning;
+
+    @Column(name = "threshold_low_critical", nullable = false)
     private double thresholdLowCritical;
 
     // GETTERS AND SETTERS
-    public int getAutoId() { return autoId; }
 
-    public String getSensorId() { return sensorId; }
-    public void setSensorId(String sensorId) { this.sensorId = sensorId; }
+    public Integer getSensorId() { return sensorId; }
+    public void setSensorId(Integer sensorId) { this.sensorId = sensorId; }
 
     public SensorType getSensorType() { return sensorType; }
     public void setSensorType(SensorType sensorType) { this.sensorType = sensorType; }
