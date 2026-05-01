@@ -4,6 +4,7 @@ import com.kernelx.metadatahandling.entity.Sensor;
 import com.kernelx.metadatahandling.repository.SensorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Slf4j
@@ -20,20 +21,23 @@ public class SensorService {
         return repository.findAll();
     }
 
-    public Sensor getSensorById(String id) {
+    public Sensor getSensorById(Integer id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Sensor not found with ID: " + id));
     }
 
     public Sensor createSensor(Sensor sensor) {
-        if (sensor.getSensorId() == null || sensor.getSensorId().isEmpty()) {
-            throw new RuntimeException("Error: You must provide a Sensor ID manually.");
+        // If you're NOT auto-generating IDs, enforce presence
+        if (sensor.getSensorId() == null) {
+            throw new RuntimeException("Error: Sensor ID must be provided.");
         }
+
         return repository.save(sensor);
     }
 
-    public Sensor updateSensor(String id, Sensor details) {
+    public Sensor updateSensor(Integer id, Sensor details) {
         Sensor existing = getSensorById(id);
+
         existing.setSensorType(details.getSensorType());
         existing.setSite(details.getSite());
         existing.setLatitude(details.getLatitude());
@@ -43,10 +47,11 @@ public class SensorService {
         existing.setThresholdHighCritical(details.getThresholdHighCritical());
         existing.setThresholdLowWarning(details.getThresholdLowWarning());
         existing.setThresholdLowCritical(details.getThresholdLowCritical());
+
         return repository.save(existing);
     }
 
-    public void deleteSensor(String id) {
+    public void deleteSensor(Integer id) {
         if (!repository.existsById(id)) {
             throw new RuntimeException("Sensor not found with ID: " + id);
         }

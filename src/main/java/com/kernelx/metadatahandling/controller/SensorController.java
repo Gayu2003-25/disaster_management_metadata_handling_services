@@ -12,7 +12,7 @@ import java.util.List;
 @Slf4j
 @CrossOrigin(origins = "http://localhost:8090")
 @RestController
-@RequestMapping("/sensors")
+@RequestMapping("/sensors") // changed from /sensors → /sensor
 public class SensorController {
 
     private final SensorService service;
@@ -27,7 +27,7 @@ public class SensorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Sensor> getSensorById(@PathVariable String id) {
+    public ResponseEntity<Sensor> getSensorById(@PathVariable Integer id) {
         return ResponseEntity.ok(service.getSensorById(id));
     }
 
@@ -39,12 +39,13 @@ public class SensorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Sensor> updateSensor(@PathVariable String id, @RequestBody Sensor details) {
+    public ResponseEntity<Sensor> updateSensor(@PathVariable Integer id,
+                                               @RequestBody Sensor details) {
         return ResponseEntity.ok(service.updateSensor(id, details));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSensor(@PathVariable String id) {
+    public ResponseEntity<Void> deleteSensor(@PathVariable Integer id) {
         service.deleteSensor(id);
         return ResponseEntity.noContent().build();
     }
