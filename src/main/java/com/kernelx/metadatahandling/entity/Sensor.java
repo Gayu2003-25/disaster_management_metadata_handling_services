@@ -10,7 +10,7 @@ public class Sensor {
 
     @Id
     @Column(name = "sensor_id")
-    private Integer sensorId;
+    private String sensorId;
 
     @ManyToOne
     @JoinColumn(name = "sensor_type_id", nullable = false)
@@ -43,8 +43,8 @@ public class Sensor {
 
     // GETTERS AND SETTERS
 
-    public Integer getSensorId() { return sensorId; }
-    public void setSensorId(Integer sensorId) { this.sensorId = sensorId; }
+    public String getSensorId() { return sensorId; }
+    public void setSensorId(String sensorId) { this.sensorId = sensorId; }
 
     public SensorType getSensorType() { return sensorType; }
     public void setSensorType(SensorType sensorType) { this.sensorType = sensorType; }

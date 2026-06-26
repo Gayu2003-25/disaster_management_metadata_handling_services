@@ -21,7 +21,7 @@ public class SensorService {
         return repository.findAll();
     }
 
-    public Sensor getSensorById(Integer id) {
+    public Sensor getSensorById(String id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Sensor not found with ID: " + id));
     }
@@ -35,7 +35,7 @@ public class SensorService {
         return repository.save(sensor);
     }
 
-    public Sensor updateSensor(Integer id, Sensor details) {
+    public Sensor updateSensor(String id, Sensor details) {
         Sensor existing = getSensorById(id);
 
         existing.setSensorType(details.getSensorType());
@@ -51,7 +51,7 @@ public class SensorService {
         return repository.save(existing);
     }
 
-    public void deleteSensor(Integer id) {
+    public void deleteSensor(String id) {
         if (!repository.existsById(id)) {
             throw new RuntimeException("Sensor not found with ID: " + id);
         }
