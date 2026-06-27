@@ -31,7 +31,7 @@ COPY src ./src
 
 # Build
 RUN --mount=type=cache,target=/root/.m2 \
-    mvn clean package -DskipTests
+    mvn package -DskipTests
 
 
 # Runtime Stage
