@@ -41,6 +41,9 @@ public class SecurityConfig {
                             .requestMatchers(HttpMethod.GET, SENSOR_TYPES_PATH).permitAll()
                             .requestMatchers(HttpMethod.GET, SITES_PATH).permitAll()
                             
+                            // Swagger Endpoints
+                            .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                            
                             // Modifying requests restricted to ADMIN and OPERATOR
                             .requestMatchers(HttpMethod.POST, SENSORS_PATH).hasAnyRole(ROLE_ADMIN, ROLE_OPERATOR)
                             .requestMatchers(HttpMethod.PUT, SENSORS_PATH).hasAnyRole(ROLE_ADMIN, ROLE_OPERATOR)
