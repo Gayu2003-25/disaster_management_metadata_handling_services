@@ -12,7 +12,7 @@ import java.util.List;
 @Slf4j
 @CrossOrigin(origins = "http://localhost:8090")
 @RestController
-@RequestMapping("/sensors")
+@RequestMapping("/sensors") // changed from /sensors → /sensor
 public class SensorController {
 
     private final SensorService service;
