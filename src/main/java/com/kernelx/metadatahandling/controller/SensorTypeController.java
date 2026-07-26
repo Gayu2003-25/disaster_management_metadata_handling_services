@@ -4,7 +4,6 @@ import com.kernelx.metadatahandling.entity.SensorType;
 import com.kernelx.metadatahandling.repository.SensorTypeRepository;
 import com.kernelx.metadatahandling.service.SensorTypeService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +18,11 @@ public class SensorTypeController {
 
     private final SensorTypeService service;
 
-    @Autowired
-    private SensorTypeRepository sensorTypeRepository;
+    private final SensorTypeRepository sensorTypeRepository;
 
-    public SensorTypeController(SensorTypeService service) {
+    public SensorTypeController(SensorTypeService service, SensorTypeRepository sensorTypeRepository) {
         this.service = service;
+        this.sensorTypeRepository = sensorTypeRepository;
     }
 
     @GetMapping
@@ -34,7 +33,7 @@ public class SensorTypeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SensorType> getSensorTypeById(@PathVariable Integer id) {
+    public ResponseEntity<SensorType> getSensorTypeById(@PathVariable("id") Integer id) {
         SensorType type = sensorTypeRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error("HTTP STATUS: 404 NOT FOUND - SensorType ID {} not found", id);
@@ -52,14 +51,14 @@ public class SensorTypeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SensorType> updateSensorType(@PathVariable int id, @RequestBody SensorType typeDetails) {
+    public ResponseEntity<SensorType> updateSensorType(@PathVariable("id") int id, @RequestBody SensorType typeDetails) {
         SensorType updated = service.updateSensorType(id, typeDetails);
         log.info("HTTP STATUS: 200 OK - Updated SensorType ID: {}", id);
         return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSensorType(@PathVariable int id) {
+    public ResponseEntity<Void> deleteSensorType(@PathVariable("id") int id) {
         service.deleteSensorType(id);
         log.info("HTTP STATUS: 204 NO CONTENT - Deleted SensorType ID: {}", id);
         return ResponseEntity.noContent().build();

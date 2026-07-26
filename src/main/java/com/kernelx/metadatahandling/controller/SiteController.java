@@ -4,7 +4,6 @@ import com.kernelx.metadatahandling.entity.Site;
 import com.kernelx.metadatahandling.repository.SiteRepository;
 import com.kernelx.metadatahandling.service.SiteService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +20,12 @@ public class SiteController {
     private final SiteService service;
 
     // 2. You must declare the Repository
-    @Autowired
-    private SiteRepository siteRepository;
+    private final SiteRepository siteRepository;
 
     // 3. Constructor to initialize the Service
-    public SiteController(SiteService service) {
+    public SiteController(SiteService service, SiteRepository siteRepository) {
         this.service = service;
+        this.siteRepository = siteRepository;
     }
 
     // View all Sites: Returns 200 OK
@@ -39,7 +38,7 @@ public class SiteController {
 
     // View Site by ID: Returns 200 OK
     @GetMapping("/{id}")
-    public ResponseEntity<Site> getSiteById(@PathVariable Integer id) {
+    public ResponseEntity<Site> getSiteById(@PathVariable("id") Integer id) {
         Site site = siteRepository.findById(id).orElseThrow(() -> {
             // This logs the 404 error to your terminal
             log.error("HTTP STATUS: 404 NOT FOUND - Site ID {} not found", id);
@@ -59,7 +58,7 @@ public class SiteController {
 
     // Update Site: Returns 200 OK
     @PutMapping("/{id}")
-    public ResponseEntity<Site> updateSite(@PathVariable int id, @RequestBody Site details) {
+    public ResponseEntity<Site> updateSite(@PathVariable("id") int id, @RequestBody Site details) {
         Site updated = service.updateSite(id, details);
         log.info("HTTP STATUS: 200 OK - Updated Site ID: {}", id);
         return ResponseEntity.ok(updated);
@@ -67,7 +66,7 @@ public class SiteController {
 
     // Delete Site: Returns 204 No Content
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSite(@PathVariable int id) {
+    public ResponseEntity<Void> deleteSite(@PathVariable("id") int id) {
         service.deleteSite(id);
         log.info("HTTP STATUS: 204 NO CONTENT - Deleted Site ID: {}", id);
         return ResponseEntity.noContent().build();
